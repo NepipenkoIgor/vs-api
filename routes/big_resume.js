@@ -2,7 +2,7 @@ var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport();
 module.exports = function (app) {
   var adminEmail = app.get('adminEmail');
-  app.post('api/v1/send/resume', function (req, res) {
+  app.post('/api/v1/send/resume', function (req, res) {
     var mailObj = req.body;
     transporter.sendMail({
       from: mailObj.email,
