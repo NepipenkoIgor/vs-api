@@ -8,4 +8,5 @@ module.exports = function (app) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
+  app.use(express.static('public'));
 };
