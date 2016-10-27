@@ -48,28 +48,36 @@ module.exports = function (app) {
 
     let errors = [];
 
-    Object.keys(req.body).forEach(function (key) {
-      const currentValue = req.body[key];
-      const currentRule = fields[key];
+    try {
+      Object.keys(req.body).forEach(function (key) {
+        const currentValue = req.body[key];
+        if (!fields[key]) {
+          throw new Error('Unapropriate field name');
+        }
+        const currentRule = fields[key];
 
-      switch (currentRule.type) {
-        case 'text' :
-          if (currentRule.required && !currentValue) {
-            errors.push(`${key} field is required`);
-          } else if (currentValue.length > currentRule.maxLength) {
-            errors.push(`${key} field should contain less than ${currentRule.maxLength} symbols`);
-          }
-        break;
-        case 'regexp' :
-          if (currentRule.required && !currentValue) {
-            errors.push(`${key} field is required`);
-          } else if (!currentValue.match(currentRule.regexp)) {
-            errors.push(`${key} field should be specified in valid form`);
-          }
-        break;
-      }
-  
-    });
+        switch (currentRule.type) {
+          case 'text' :
+            if (currentRule.required && !currentValue) {
+              errors.push(`${key} field is required`);
+            } else if (currentValue.length > currentRule.maxLength) {
+              errors.push(`${key} field should contain less than ${currentRule.maxLength} symbols`);
+            }
+          break;
+          case 'regexp' :
+            if (currentRule.required && !currentValue) {
+              errors.push(`${key} field is required`);
+            } else if (!currentValue.match(currentRule.regexp)) {
+              errors.push(`${key} field should be specified in valid form`);
+            }
+          break;
+        }
+    
+      });
+    } catch (e) {
+      return res.status(400).send(e.message);
+    }
+    
 
     if (req.files && req.files.attachment) {
       if (!fields.attachment.allowedDoctypes.includes(req.files.attachment.type)) {
@@ -143,7 +151,7 @@ module.exports = function (app) {
   function _sendResult(err, result, resStream) {
     if (err) {
       console.log(err);
-      return resStream.json({success: false, message: 'mail sending error'});
+      return resStream.json({success: false, message: err});
     }
       
     console.log(result);
