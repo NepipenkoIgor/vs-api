@@ -1,3 +1,8 @@
+'use strict'
 module.exports = function(app) {
-  app.set('adminEmail', 'anna.siver@valor-software.com');
+	const _config = {
+		adminEmail: 'oleg.rybnikov@valor-software.com',
+		allowedOrigins: ['http://localhost:4200']
+	};
+  app.set('config', _config);
 };
