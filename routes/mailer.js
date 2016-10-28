@@ -4,7 +4,7 @@ const transporter = nodemailer.createTransport();
 const multipart = require('connect-multiparty');
 
 module.exports = function (app) {
-  const adminEmail = app.get('config').adminEmail;
+  const adminEmail = process.env.ADMIN_EMAIL || app.get('config').adminEmail;
   const multipartMiddleware = multipart();
 
   app.post('/api/v1/send/contact', multipartMiddleware, validatorMiddleware, contacts);
