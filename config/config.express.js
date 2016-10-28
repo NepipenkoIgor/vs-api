@@ -7,7 +7,7 @@ module.exports = function (app) {
   app.use(function(req, res, next) {
 
   	const origin = req.headers.origin;
-  	const acceptedOrigins = process.env.ACCEPTED_ORIGINS.split(',') || app.get('config').allowedOrigins;
+  	const acceptedOrigins = process.env.ALLOWED_ORIGINS.split(',') || app.get('config').allowedOrigins;
   	if (!origin || !acceptedOrigins.includes(origin)) {
   		return res.status(403).send('Forbidden');
   	}
