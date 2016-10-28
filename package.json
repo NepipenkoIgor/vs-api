@@ -1,24 +1,28 @@
 {
-  "name": "valor-software-site",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "valor-software-api",
+  "version": "0.0.1",
+  "description": "Api server",
+  "engines": {
+    "node": "6.3.1"
+  },
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/valor-software/valor-software-site.git"
+    "url": "https://github.com/VS-work/vs-api"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/valor-software/valor-software-site/issues"
+    "url": "https://github.com/VS-work/vs-api"
   },
-  "homepage": "https://github.com/valor-software/valor-software-site#readme",
+  "homepage": "https://github.com/VS-work/vs-api#readme",
   "dependencies": {
     "body-parser": "^1.14.2",
+    "connect-multiparty": "2.0.0",
     "express": "^4.13.3",
     "nodemailer": "^1.11.0"
   },
