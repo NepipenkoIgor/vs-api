@@ -33,7 +33,7 @@ module.exports = function (app) {
       phone: {
         type: 'regexp',
         required: true,
-        regexp: /^\d{10}$/
+        regexp: /^\+?[0-9]{3,14}$/
       },
       email: {
         type: 'regexp',
