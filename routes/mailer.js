@@ -1,4 +1,5 @@
-'use strict'
+'use strict';
+
 const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport();
 const multipart = require('connect-multiparty');
@@ -43,7 +44,7 @@ module.exports = function (app) {
       attachment: {
         type: 'attachment',
         allowedDoctypes: ['application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/msword', 'application/pdf']
-      }    
+      }
     };
 
     let errors = [];
@@ -63,21 +64,21 @@ module.exports = function (app) {
             } else if (currentValue.length > currentRule.maxLength) {
               errors.push(`${key} field should contain less than ${currentRule.maxLength} symbols`);
             }
-          break;
+            break;
           case 'regexp' :
             if (currentRule.required && !currentValue) {
               errors.push(`${key} field is required`);
             } else if (!currentValue.match(currentRule.regexp)) {
               errors.push(`${key} field should be specified in valid form`);
             }
-          break;
+            break;
         }
-    
+
       });
     } catch (e) {
       return res.status(400).send(e.message);
     }
-    
+
 
     if (req.files && req.files.attachment) {
       if (!fields.attachment.allowedDoctypes.includes(req.files.attachment.type)) {
@@ -89,7 +90,7 @@ module.exports = function (app) {
       return res.status(400).send(errors.join(', '));
     }
     next();
-    
+
   }
 
   function contacts(req, res) {
@@ -97,8 +98,8 @@ module.exports = function (app) {
       from: req.body.email,
       to: adminEmail,
       subject: 'Contact form from site',
-      html: `<p><b>Name:</b> ${req.body.name}</p><b>Email:</b>  ${req.body.email}<br /><br /> ${req.body.message}`,
-    }
+      html: `<p><b>Name:</b> ${req.body.name}</p><b>Email:</b>  ${req.body.email}<br /><br /> ${req.body.message}`
+    };
 
     if (req.files && req.files.attachment) {
       mailData.attachments = [{
@@ -110,15 +111,15 @@ module.exports = function (app) {
     transporter.sendMail(mailData, (err, info) => _sendResult(err, info, res));
   }
 
-  function vacancy (req, res) {
+  function vacancy(req, res) {
     const cityString = (req.body.city) ? `<b>City:</b>  ${req.body.city}<br />` : '';
 
     let mailData = {
       from: req.body.email,
       to: adminEmail,
       subject: 'Vacancy form from site',
-      html: `<p><b>Name:</b> ${req.body.name}</p><b>Email:</b>  ${req.body.email}<br /><b>Phone:</b>  ${req.body.phone}<br />${cityString}<br /> ${req.body.message}`,
-    }
+      html: `<p><b>Name:</b> ${req.body.name}</p><b>Email:</b>  ${req.body.email}<br /><b>Phone:</b>  ${req.body.phone}<br />${cityString}<br /> ${req.body.message}`
+    };
 
     if (req.files && req.files.attachment) {
       mailData.attachments = [{
@@ -135,8 +136,8 @@ module.exports = function (app) {
       from: req.body.email,
       to: adminEmail,
       subject: 'Clients form from site',
-      html: `<p><b>Name:</b> ${req.body.name}</p><b>Email:</b>  ${req.body.email}<br /><br /> ${req.body.message}`,
-    }
+      html: `<p><b>Name:</b> ${req.body.name}</p><b>Email:</b>  ${req.body.email}<br /><br /> ${req.body.message}`
+    };
 
     if (req.files && req.files.attachment) {
       mailData.attachments = [{
@@ -153,7 +154,7 @@ module.exports = function (app) {
       console.log(err);
       return resStream.json({success: false, message: err});
     }
-      
+
     console.log(result);
     resStream.json({success: true});
   }

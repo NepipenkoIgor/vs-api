@@ -1,9 +1,13 @@
 'use strict';
-var express = require('express');
-var app = express();
+
+const express = require('express');
+const app = express();
+
 require('./config')(app);
 require('./routes')(app);
-var port = process.env.PORT || 4343
+
+const port = process.env.PORT || 4343;
+
 app.listen(port, function () {
-    console.log('server started on ' + port);
+  console.log('server started on ' + port);
 });
