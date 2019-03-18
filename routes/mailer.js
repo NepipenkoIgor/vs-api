@@ -53,7 +53,7 @@ module.exports = function (app) {
       Object.keys(req.body).forEach(function (key) {
         const currentValue = req.body[key];
         if (!fields[key]) {
-          throw new Error('Unapropriate field name');
+          throw new Error('Inappropriate field name');
         }
         const currentRule = fields[key];
 
